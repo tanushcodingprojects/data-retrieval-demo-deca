@@ -123,6 +123,23 @@
       color: #2980b9;
     }
 
+    /* Style for tables */
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -243,6 +260,47 @@
         <button type="submit">Add Entry</button>
       </form>
     </div>
+
+    <!-- Data Tables Section -->
+    <div>
+      <h2>All Parent Data</h2>
+      <table id="parentTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Health Risks</th>
+            <th>Location</th>
+            <th>Health Status</th>
+            <th>Hospital Records</th>
+            <th>Health Insurance</th>
+            <th>Birth Year</th>
+            <th>College</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Parent data will be populated here -->
+        </tbody>
+      </table>
+
+      <h2>All Children Data</h2>
+      <table id="childTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Health Records</th>
+            <th>Health Status</th>
+            <th>Disability Status</th>
+            <th>Parent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Children data will be populated here -->
+        </tbody>
+      </table>
+    </div>
   </main>
   <footer>
     © 2024 School Management System | All rights reserved.
@@ -335,6 +393,8 @@
       saveData();
       alert('Data added successfully');
       document.getElementById('addDataForm').reset();
+      
+      populateTables();
     }
 
     function displayData(person, container) {
@@ -357,6 +417,36 @@
       output += '</ul>';
       container.innerHTML = `<h2>Children</h2>${output}`;
     }
+
+    function populateTables() {
+      const parentTableBody = document.getElementById('parentTable').getElementsByTagName('tbody')[0];
+      const childTableBody = document.getElementById('childTable').getElementsByTagName('tbody')[0];
+
+      // Clear current table data
+      parentTableBody.innerHTML = '';
+      childTableBody.innerHTML = '';
+
+      // Add parent data to table
+      savedData.parents.forEach(parent => {
+        const row = parentTableBody.insertRow();
+        Object.values(parent).forEach(value => {
+          const cell = row.insertCell();
+          cell.textContent = value;
+        });
+      });
+
+      // Add children data to table
+      savedData.children.forEach(child => {
+        const row = childTableBody.insertRow();
+        Object.values(child).forEach(value => {
+          const cell = row.insertCell();
+          cell.textContent = value;
+        });
+      });
+    }
+
+    // Populate the tables on page load
+    populateTables();
   </script>
 </body>
 </html>
