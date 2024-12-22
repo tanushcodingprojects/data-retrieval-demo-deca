@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student and Parent Information Lookup</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 1.5em;
+    }
+    main {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    .input-section, .add-data-section {
+      margin-bottom: 30px;
+    }
+    .input-section label, .add-data-section label {
+      font-size: 1.2em;
+      margin-right: 10px;
+    }
+    .input-section input, .add-data-section input, .add-data-section select {
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: calc(100% - 22px);
+      margin-bottom: 10px;
+    }
+    .input-section button, .add-data-section button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: white;
+      background-color: #3498db;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .input-section button:hover, .add-data-section button:hover {
+      background-color: #2980b9;
+    }
+    .output {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .box {
+      flex: 1;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      height: 300px;
+      overflow-y: auto;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1.5em;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    li strong {
+      color: #2c3e50;
+    }
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Student and Parent Information Lookup
+  </header>
+  <main>
+    <div class="input-section">
+      <label for="nameInput">Enter a Name:</label>
+      <input type="text" id="nameInput" placeholder="Enter a parent's or child's name">
+      <button onclick="searchData()">Search</button>
+      <button onclick="clearData()">Clear</button>
+    </div>
+    <div class="output">
+      <div class="box" id="parentOutput">
+        <h2>Parent</h2>
+        <p>No parent data to display.</p>
+      </div>
+      <div class="box" id="childOutput">
+        <h2>Children</h2>
+        <p>No children data to display.</p>
+      </div>
+    </div>
+    <div class="add-data-section">
+      <h2>Add New Data</h2>
+      <form id="addDataForm" onsubmit="addData(event)">
+        <label for="entryType">Entry Type:</label>
+        <select id="entryType" required>
+          <option value="parent">Parent</option>
+        </select>
+        <input type="text" id="name" placeholder="Name (Required)" required>
+        <input type="number" id="age" placeholder="Age (Required)" required>
+        <input type="text" id="healthRisks" placeholder="Health Risks (Required)" required>
+        <input type="text" id="location" placeholder="Location (Required)" required>
+        <input type="text" id="healthStatus" placeholder="Health Status (Required)" required>
+        <input type="text" id="hospitalRecords" placeholder="Hospital Records (Required)" required>
+        <input type="text" id="healthInsurance" placeholder="Health Insurance (Required)" required>
+        <input type="number" id="birthYear" placeholder="Birth Year (Required)" required>
+        <input type="text" id="college" placeholder="College (Required)" required>
+        
+        <!-- Child's Data -->
+        <h3>Child's Information</h3>
+        <input type="text" id="childName" placeholder="Child's Name (Required)" required>
+        <input type="number" id="childAge" placeholder="Child's Age (Required)" required>
+        <input type="text" id="childGrade" placeholder="Child's Grade (Required)" required>
+        
+        <!-- New Required Fields for Children -->
+        <input type="text" id="childHealthRecords" placeholder="Child's Health Records (Required)" required>
+        <input type="text" id="childHealthStatus" placeholder="Child's Health Status (Required)" required>
+        
+        <label for="childDisabilityStatus">Disability Status (Required):</label>
+        <select id="childDisabilityStatus" required>
+          <option value="None">None</option>
+          <option value="Autism Spectrum Disorder">Autism Spectrum Disorder</option>
+          <option value="Blindness/Visual Impairment">Blindness/Visual Impairment</option>
+          <option value="Cerebral Palsy">Cerebral Palsy</option>
+          <option value="Deafness/Hearing Impairment">Deafness/Hearing Impairment</option>
+          <option value="Down Syndrome">Down Syndrome</option>
+          <option value="Epilepsy">Epilepsy</option>
+          <option value="Intellectual Disability">Intellectual Disability</option>
+          <option value="Learning Disability">Learning Disability</option>
+          <option value="Physical Disability">Physical Disability</option>
+          <option value="Speech/Language Impairment">Speech/Language Impairment</option>
+          <option value="Traumatic Brain Injury">Traumatic Brain Injury</option>
+          <option value="Other">Other</option>
+        </select>
+        
+        <button type="submit">Add Entry</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    © 2024 School Management System | All rights reserved.
+  </footer>
+
+  <script>
+    // Load the saved data from localStorage (if available)
+    const savedData = JSON.parse(localStorage.getItem('data')) || {
+      parents: [],
+      children: []
+    };
+
+    function saveData() {
+      localStorage.setItem('data', JSON.stringify(savedData));
+    }
+
+    function searchData() {
+      const nameInput = document.getElementById('nameInput').value.trim();
+      const parentOutput = document.getElementById('parentOutput');
+      const childOutput = document.getElementById('childOutput');
+
+      parentOutput.innerHTML = '<h2>Parent</h2><p>No parent data to display.</p>';
+      childOutput.innerHTML = '<h2>Children</h2><p>No children data to display.</p>';
+
+      const parent = savedData.parents.find(p => p.name.toLowerCase() === nameInput.toLowerCase());
+      const child = savedData.children.find(c => c.name.toLowerCase() === nameInput.toLowerCase());
+
+      if (parent) {
+        displayData(parent, parentOutput);
+        const children = savedData.children.filter(c => c.parent === parent.name);
+        displayDataList(children, childOutput);
+      } else if (child) {
+        displayData(child, childOutput);
+        const childParent = savedData.parents.find(p => p.name === child.parent);
+        if (childParent) displayData(childParent, parentOutput);
+      } else {
+        parentOutput.innerHTML = '<h2>Error</h2><p>Name not found.</p>';
+        childOutput.innerHTML = '<h2>Error</h2><p>Name not found.</p>';
+      }
+    }
+
+    function clearData() {
+      document.getElementById('nameInput').value = '';
+      document.getElementById('parentOutput').innerHTML = '<h2>Parent</h2><p>No parent data to display.</p>';
+      document.getElementById('childOutput').innerHTML = '<h2>Children</h2><p>No children data to display.</p>';
+    }
+
+    function addData(event) {
+      event.preventDefault(); // Prevent form submission
+
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const healthRisks = document.getElementById('healthRisks').value.trim();
+      const location = document.getElementById('location').value.trim();
+      const healthStatus = document.getElementById('healthStatus').value.trim();
+      const hospitalRecords = document.getElementById('hospitalRecords').value.trim();
+      const healthInsurance = document.getElementById('healthInsurance').value.trim();
+      const birthYear = document.getElementById('birthYear').value.trim();
+      const college = document.getElementById('college').value.trim();
+      
+      const childName = document.getElementById('childName').value.trim();
+      const childAge = document.getElementById('childAge').value.trim();
+      const childGrade = document.getElementById('childGrade').value.trim();
+      const childHealthRecords = document.getElementById('childHealthRecords').value.trim();
+      const childHealthStatus = document.getElementById('childHealthStatus').value.trim();
+      const childDisabilityStatus = document.getElementById('childDisabilityStatus').value.trim();
+
+      const newParent = {
+        name, age, healthRisks, location, healthStatus, hospitalRecords, healthInsurance, birthYear, college
+      };
+      
+      savedData.parents.push(newParent);
+
+      const newChild = {
+        name: childName,
+        age: childAge,
+        class: childGrade,
+        parent: name,
+        healthRecords: childHealthRecords,
+        healthStatus: childHealthStatus,
+        disabilityStatus: childDisabilityStatus
+      };
+      
+      savedData.children.push(newChild);
+
+      saveData(); // Save the updated data to localStorage
+      alert("Entry added successfully!");
+      document.getElementById('addDataForm').reset(); // Clear the form after adding
+    }
+
+    function displayData(data, container) {
+      container.innerHTML = `<h2>${data.name}</h2><ul>`;
+      Object.keys(data).forEach(key => {
+        if (key !== 'name') {
+          container.innerHTML += `<li><strong>${key.replace(/([A-Z])/g, ' $1')}:</strong> ${data[key]}</li>`;
+        }
+      });
+      container.innerHTML += '</ul>';
+    }
+
+    function displayDataList(items, container) {
+      container.innerHTML = '<h2>Children</h2><ul>';
+      items.forEach(item => {
+        container.innerHTML += `<li><strong>${item.name}</strong> - ${item.age} years old, Grade: ${item.class}</li>`;
+      });
+      container.innerHTML += '</ul>';
+    }
+  </script>
+</body>
+</html>
