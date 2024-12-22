@@ -9,86 +9,120 @@
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f5f7fa;
+      background-color: #f0f2f5;
     }
+
     header {
-      background-color: #2c3e50;
+      background-color: #2980b9;
       color: white;
       text-align: center;
-      padding: 20px 10px;
-      font-size: 1.5em;
+      padding: 30px 15px;
+      font-size: 2em;
+      font-weight: bold;
     }
+
     main {
-      max-width: 1200px;
-      margin: 20px auto;
+      max-width: 1100px;
+      margin: 30px auto;
       padding: 20px;
       background-color: white;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
+
     .input-section, .add-data-section {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      background-color: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
     }
+
     .input-section label, .add-data-section label {
-      font-size: 1.2em;
-      margin-right: 10px;
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #34495e;
     }
+
     .input-section input, .add-data-section input, .add-data-section select {
-      padding: 10px;
+      padding: 12px;
       font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: calc(100% - 22px);
-      margin-bottom: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 6px;
+      width: calc(100% - 24px);
+      margin-bottom: 12px;
+      background-color: #ffffff;
     }
+
     .input-section button, .add-data-section button {
-      padding: 10px 20px;
-      font-size: 1em;
+      padding: 12px 20px;
+      font-size: 1.1em;
       color: white;
       background-color: #3498db;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-left: 10px;
+      transition: background-color 0.3s ease;
     }
+
     .input-section button:hover, .add-data-section button:hover {
       background-color: #2980b9;
     }
+
     .output {
       display: flex;
       justify-content: space-between;
       gap: 20px;
     }
+
     .box {
       flex: 1;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
       background-color: #f8f9fa;
-      height: 300px;
+      height: 350px;
       overflow-y: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
+
     h2 {
       margin-top: 0;
-      font-size: 1.5em;
+      font-size: 1.6em;
+      color: #2c3e50;
       text-align: center;
     }
+
     ul {
       list-style: none;
       padding: 0;
     }
+
     li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      color: #34495e;
     }
+
     li strong {
-      color: #2c3e50;
+      color: #2980b9;
     }
+
     footer {
-      margin-top: 20px;
+      margin-top: 30px;
       text-align: center;
       font-size: 0.9em;
       color: #7f8c8d;
     }
+
+    .form-section {
+      margin-bottom: 20px;
+    }
+
+    .form-section h3 {
+      font-size: 1.4em;
+      color: #2980b9;
+    }
+
   </style>
 </head>
 <body>
@@ -115,47 +149,97 @@
     <div class="add-data-section">
       <h2>Add New Data</h2>
       <form id="addDataForm" onsubmit="addData(event)">
-        <label for="entryType">Entry Type:</label>
-        <select id="entryType" required>
-          <option value="parent">Parent</option>
-        </select>
-        <input type="text" id="name" placeholder="Name (Required)" required>
-        <input type="number" id="age" placeholder="Age (Required)" required>
-        <input type="text" id="healthRisks" placeholder="Health Risks (Required)" required>
-        <input type="text" id="location" placeholder="Location (Required)" required>
-        <input type="text" id="healthStatus" placeholder="Health Status (Required)" required>
-        <input type="text" id="hospitalRecords" placeholder="Hospital Records (Required)" required>
-        <input type="text" id="healthInsurance" placeholder="Health Insurance (Required)" required>
-        <input type="number" id="birthYear" placeholder="Birth Year (Required)" required>
-        <input type="text" id="college" placeholder="College (Required)" required>
-        
+        <div class="form-section">
+          <label for="name">Name (Required):</label>
+          <input type="text" id="name" placeholder="Name" required>
+        </div>
+
+        <div class="form-section">
+          <label for="age">Age (Required):</label>
+          <input type="number" id="age" placeholder="Age" required>
+        </div>
+
+        <div class="form-section">
+          <label for="healthRisks">Health Risks (Required):</label>
+          <input type="text" id="healthRisks" placeholder="Health Risks" required>
+        </div>
+
+        <div class="form-section">
+          <label for="location">Location (Required):</label>
+          <input type="text" id="location" placeholder="Location" required>
+        </div>
+
+        <div class="form-section">
+          <label for="healthStatus">Health Status (Required):</label>
+          <input type="text" id="healthStatus" placeholder="Health Status" required>
+        </div>
+
+        <div class="form-section">
+          <label for="hospitalRecords">Hospital Records (Required):</label>
+          <input type="text" id="hospitalRecords" placeholder="Hospital Records" required>
+        </div>
+
+        <div class="form-section">
+          <label for="healthInsurance">Health Insurance (Required):</label>
+          <input type="text" id="healthInsurance" placeholder="Health Insurance" required>
+        </div>
+
+        <div class="form-section">
+          <label for="birthYear">Birth Year (Required):</label>
+          <input type="number" id="birthYear" placeholder="Birth Year" required>
+        </div>
+
+        <div class="form-section">
+          <label for="college">College (Required):</label>
+          <input type="text" id="college" placeholder="College" required>
+        </div>
+
         <!-- Child's Data -->
         <h3>Child's Information</h3>
-        <input type="text" id="childName" placeholder="Child's Name (Required)" required>
-        <input type="number" id="childAge" placeholder="Child's Age (Required)" required>
-        <input type="text" id="childGrade" placeholder="Child's Grade (Required)" required>
-        
-        <!-- New Required Fields for Children -->
-        <input type="text" id="childHealthRecords" placeholder="Child's Health Records (Required)" required>
-        <input type="text" id="childHealthStatus" placeholder="Child's Health Status (Required)" required>
-        
-        <label for="childDisabilityStatus">Disability Status (Required):</label>
-        <select id="childDisabilityStatus" required>
-          <option value="None">None</option>
-          <option value="Autism Spectrum Disorder">Autism Spectrum Disorder</option>
-          <option value="Blindness/Visual Impairment">Blindness/Visual Impairment</option>
-          <option value="Cerebral Palsy">Cerebral Palsy</option>
-          <option value="Deafness/Hearing Impairment">Deafness/Hearing Impairment</option>
-          <option value="Down Syndrome">Down Syndrome</option>
-          <option value="Epilepsy">Epilepsy</option>
-          <option value="Intellectual Disability">Intellectual Disability</option>
-          <option value="Learning Disability">Learning Disability</option>
-          <option value="Physical Disability">Physical Disability</option>
-          <option value="Speech/Language Impairment">Speech/Language Impairment</option>
-          <option value="Traumatic Brain Injury">Traumatic Brain Injury</option>
-          <option value="Other">Other</option>
-        </select>
-        
+        <div class="form-section">
+          <label for="childName">Child's Name (Required):</label>
+          <input type="text" id="childName" placeholder="Child's Name" required>
+        </div>
+
+        <div class="form-section">
+          <label for="childAge">Child's Age (Required):</label>
+          <input type="number" id="childAge" placeholder="Child's Age" required>
+        </div>
+
+        <div class="form-section">
+          <label for="childGrade">Child's Grade (Required):</label>
+          <input type="text" id="childGrade" placeholder="Child's Grade" required>
+        </div>
+
+        <div class="form-section">
+          <label for="childHealthRecords">Child's Health Records (Required):</label>
+          <input type="text" id="childHealthRecords" placeholder="Child's Health Records" required>
+        </div>
+
+        <div class="form-section">
+          <label for="childHealthStatus">Child's Health Status (Required):</label>
+          <input type="text" id="childHealthStatus" placeholder="Child's Health Status" required>
+        </div>
+
+        <div class="form-section">
+          <label for="childDisabilityStatus">Disability Status (Required):</label>
+          <select id="childDisabilityStatus" required>
+            <option value="None">None</option>
+            <option value="Autism Spectrum Disorder">Autism Spectrum Disorder</option>
+            <option value="Blindness/Visual Impairment">Blindness/Visual Impairment</option>
+            <option value="Cerebral Palsy">Cerebral Palsy</option>
+            <option value="Deafness/Hearing Impairment">Deafness/Hearing Impairment</option>
+            <option value="Down Syndrome">Down Syndrome</option>
+            <option value="Epilepsy">Epilepsy</option>
+            <option value="Intellectual Disability">Intellectual Disability</option>
+            <option value="Learning Disability">Learning Disability</option>
+            <option value="Physical Disability">Physical Disability</option>
+            <option value="Speech/Language Impairment">Speech/Language Impairment</option>
+            <option value="Traumatic Brain Injury">Traumatic Brain Injury</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
         <button type="submit">Add Entry</button>
       </form>
     </div>
@@ -165,7 +249,6 @@
   </footer>
 
   <script>
-    // Load the saved data from localStorage (if available)
     const savedData = JSON.parse(localStorage.getItem('data')) || {
       parents: [],
       children: []
@@ -218,7 +301,6 @@
       const healthInsurance = document.getElementById('healthInsurance').value.trim();
       const birthYear = document.getElementById('birthYear').value.trim();
       const college = document.getElementById('college').value.trim();
-      
       const childName = document.getElementById('childName').value.trim();
       const childAge = document.getElementById('childAge').value.trim();
       const childGrade = document.getElementById('childGrade').value.trim();
@@ -227,44 +309,53 @@
       const childDisabilityStatus = document.getElementById('childDisabilityStatus').value.trim();
 
       const newParent = {
-        name, age, healthRisks, location, healthStatus, hospitalRecords, healthInsurance, birthYear, college
+        name,
+        age,
+        healthRisks,
+        location,
+        healthStatus,
+        hospitalRecords,
+        healthInsurance,
+        birthYear,
+        college
       };
-      
-      savedData.parents.push(newParent);
 
       const newChild = {
         name: childName,
         age: childAge,
-        class: childGrade,
-        parent: name,
+        grade: childGrade,
         healthRecords: childHealthRecords,
         healthStatus: childHealthStatus,
-        disabilityStatus: childDisabilityStatus
+        disabilityStatus: childDisabilityStatus,
+        parent: name
       };
-      
-      savedData.children.push(newChild);
 
-      saveData(); // Save the updated data to localStorage
-      alert("Entry added successfully!");
-      document.getElementById('addDataForm').reset(); // Clear the form after adding
+      savedData.parents.push(newParent);
+      savedData.children.push(newChild);
+      saveData();
+      alert('Data added successfully');
+      document.getElementById('addDataForm').reset();
     }
 
-    function displayData(data, container) {
-      container.innerHTML = `<h2>${data.name}</h2><ul>`;
-      Object.keys(data).forEach(key => {
-        if (key !== 'name') {
-          container.innerHTML += `<li><strong>${key.replace(/([A-Z])/g, ' $1')}:</strong> ${data[key]}</li>`;
-        }
+    function displayData(person, container) {
+      let output = '';
+      Object.keys(person).forEach(key => {
+        output += `<li><strong>${key}</strong>: ${person[key]}</li>`;
       });
-      container.innerHTML += '</ul>';
+      container.innerHTML = `<h2>${person.name}</h2><ul>${output}</ul>`;
     }
 
     function displayDataList(items, container) {
-      container.innerHTML = '<h2>Children</h2><ul>';
+      if (items.length === 0) {
+        container.innerHTML = '<p>No children found for this parent.</p>';
+        return;
+      }
+      let output = '<ul>';
       items.forEach(item => {
-        container.innerHTML += `<li><strong>${item.name}</strong> - ${item.age} years old, Grade: ${item.class}</li>`;
+        output += `<li><strong>${item.name}</strong>: ${item.grade}</li>`;
       });
-      container.innerHTML += '</ul>';
+      output += '</ul>';
+      container.innerHTML = `<h2>Children</h2>${output}`;
     }
   </script>
 </body>
